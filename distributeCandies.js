@@ -50,12 +50,18 @@ var distributeCandies = function(candyType) {
   return totalCandies/2;
 };
 
-const tests = [
-  [1,1,2,2,3,3],
-  [1,1,2,3],
-  [6,6,6,6]
-];
+/*
+  Time Complexity: O(n) - linear
+  Space Complexity: O(n) - linear.
+    - total candies object in worst case is as long as og CandyType arr
+*/
 
-for (let i in tests) {
-  console.log(distributeCandies(tests[i]));
-}
+// const tests = [
+//   [1,1,2,2,3,3],  // 3
+//   [1,1,2,3],      // 2
+//   [6,6,6,6]       // 1
+// ];
+
+// for (let i in tests) {
+//   console.log(distributeCandies(tests[i]));
+// }
