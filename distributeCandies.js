@@ -65,3 +65,20 @@ var distributeCandies = function(candyType) {
 // for (let i in tests) {
 //   console.log(distributeCandies(tests[i]));
 // }
+
+var distributeCandies = function(candyType) {
+  let uniqueCandies = new Set(candyType);
+
+  let totalUniqueCandies = uniqueCandies.size;
+  let canEat = candyType.length / 2;
+
+  if (canEat >= totalUniqueCandies) return totalUniqueCandies;
+  else return canEat;
+};
+
+/*
+  Time Complexity: O(n) - linear
+   - populating set
+  Space Complexity: O(n) - linear.
+    - set
+*/
