@@ -49,7 +49,7 @@ E: empty tree, tree of only root
   let sumPerLevel = 0;
   let averages = [];
 
-  // [null]
+  // iterate throught the the tree
   while(queue.length > 0) {
     let currentNode = queue.shift();
 
