@@ -71,7 +71,6 @@ E: empty tree, tree of only root
 
     // if current is not end of level aka null
     // calculate values and add children
-
     if (currentNode !== null) {
       sumPerLevel += currentNode.val;
       nodesPerLevel += 1;
