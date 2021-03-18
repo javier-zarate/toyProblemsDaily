@@ -14,6 +14,7 @@ Each problem should have the following:
 -   Time Complexity / Space Complexity
 -   Sample Tests
 
-## Data Structures
+## Data Structures and Sorting Algorithms
 
-Will include implementations of popular data structures and related methods!
+-   Implementations of popular data structures and related methods!
+-   Implementations of popular sortinf algorithms!

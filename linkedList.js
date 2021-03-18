@@ -1,5 +1,5 @@
 /**
- * Data Structures: Linked List and related methods
+ * Data Structures: Singly Linked List and related methods
  */
 
 class Node {
