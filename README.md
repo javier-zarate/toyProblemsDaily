@@ -14,7 +14,7 @@ Each problem should have the following:
 -   Time Complexity / Space Complexity
 -   Sample Tests
 
-<em> Some problems are automatically pushed using</em> [**LeetHub**](https://chrome.google.com/webstore/detail/leethub/aciombdipochlnkbpcbgdpjffcfdbggi?hl=en) <em>Chrome extention</em>] 
+<em> Some problems are automatically pushed using</em> [**LeetHub**](https://chrome.google.com/webstore/detail/leethub/aciombdipochlnkbpcbgdpjffcfdbggi?hl=en) <em>Chrome extention</em> 
 
 ## Data Structures and Sorting Algorithms
 
