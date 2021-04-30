@@ -11,11 +11,9 @@
  * @return {number}
  */
 var maxDepth = function(root) {
-    depthFinder = (root, level) => {
-      if (!root) return level;
-      return Math.max(depthFinder(root.left, level + 1), depthFinder(root.right, level + 1));
-      
-    }
-    
-    return depthFinder(root, 0);
+  if (!root) return 0;
+  
+  let left = maxDepth(root.left);
+  let right = maxDepth(root.right); 
+  return Math.max(left, right) + 1;
 };
