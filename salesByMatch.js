@@ -56,3 +56,22 @@ function sockMerchant(n, ar) {
   Space Complexity: O(n)
 - Case where there are no pairs and all are stored
 */
+function sockMerchant(n, ar) {
+	let ones = {},
+		pairs = 0;
+	for (let i = 0; i < n; i++) {
+		if (ones.hasOwnProperty(ar[i])) {
+			pairs++;
+			delete ones[ar[i]];
+		} else {
+			ones[ar[i]] = 0;
+		}
+	}
+	return pairs;
+}
+/*Time Complexity: O(n)
+- traverses all socks and .hasOwnProperty should be O(1)
+  as it is a key lookup.
+  Space Complexity: O(n)
+- Case where there are no pairs and all are stored
+*/
