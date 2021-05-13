@@ -4,7 +4,7 @@
 
 sources:
 
-_Leetcode, Codewars, Interview Cake and other sources!_
+_Leetcode, Codewars, HackerRank Interview Cake and other sources!_
 
 Each problem should have the following:
 
