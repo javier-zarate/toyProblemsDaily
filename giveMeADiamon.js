@@ -29,36 +29,48 @@ A size 5 diamond:
 "  *\n ***\n*****\n ***\n  *\n"
  */
 
-function diamond(n) {
-	if (n % 2 === 0 || n <= 0) return null;
+// function diamond(n) {
+// 	if (n % 2 === 0 || n <= 0) return null;
 
-	let diam = '';
+// 	let diam = '';
 
-	let space = ' ';
-	let star = '*';
+// 	let space = ' ';
+// 	let star = '*';
 
-	let mid = Math.ceil(n / 2);
-	let spaceMod = mid;
-	let starCount = 1;
+// 	let mid = Math.ceil(n / 2);
+// 	let spaceMod = mid;
+// 	let starCount = 1;
 
-	let i = 1;
+// 	let i = 1;
 
-	while (i <= n) {
-		if (i === mid) {
-			diam += star.repeat(starCount) + '\n';
-		} else if (i < mid) {
-			diam += space.repeat(n % spaceMod) + star.repeat(starCount) + '\n';
-			spaceMod += 1;
-			starCount += 2;
-		} else {
-			spaceMod -= 1;
-			starCount -= 2;
-			diam += space.repeat(n % spaceMod) + star.repeat(starCount) + '\n';
-		}
-		i++;
-	}
+// 	while (i <= n) {
+// 		if (i === mid) {
+// 			diam += star.repeat(starCount) + '\n';
+// 		} else if (i < mid) {
+// 			diam += space.repeat(n % spaceMod) + star.repeat(starCount) + '\n';
+// 			spaceMod += 1;
+// 			starCount += 2;
+// 		} else {
+// 			spaceMod -= 1;
+// 			starCount -= 2;
+// 			diam += space.repeat(n % spaceMod) + star.repeat(starCount) + '\n';
+// 		}
+// 		i++;
+// 	}
 
-	return diam;
+// 	return diam;
+// }
+
+function diamond (n) {
+  if (n <= 0 || n % 2 === 0) return null
+  str = ''
+  for (let i = 0; i < n; i++) {
+    let len = Math.abs((n-2*i-1)/2)
+    str += ' '.repeat(len)
+    str += '*'.repeat(n-2*len)
+    str += '\n'
+  }
+  return str
 }
 
 console.log(diamond(1));
