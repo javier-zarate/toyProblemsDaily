@@ -32,35 +32,14 @@ The element in a that occurs in the array more than once and has the minimal ind
 
 
 function firstDuplicate(a) {
-  // iterate over the string
-  let smallestDuplicate = {};
+    let set = new Set();
 
-  // if there is a duplicate update
-  for (let i = 0; i < a.length; i++) {
-      isDupIndexFound = a.slice(i + 1, a.length).indexOf(a[i]);
-
-      if (isDupIndexFound !== -1) {
-
-          if (Object.keys(smallestDuplicate).length === 0) {
-
-              smallestDuplicate[isDupIndexFound] = a[i];
-          }
-
-          key = Object.keys(smallestDuplicate);
-          if (Number(key[0]) > isDupIndexFound) {
-
-              delete smallestDuplicate[key];
-              smallestDuplicate[isDupIndexFound] = a[i];
-          }
-      }
-  }
-
-  let finalKey = Object.keys(smallestDuplicate);
-  return smallestDuplicate[finalKey] ? smallestDuplicate[finalKey] : -1;
-
-  // dup object -> {'index': 'dupChar'}
-  // as more dups are found check if their index is smaller
-  // if so update obj else dont mod
-
-  // return dub char
+    for(let i = 0; i < a.length; i++) {
+        if (set.has(a[i])) {
+            return a[i];
+        } else {
+            set.add(a[i]);
+        }
+    }
+    return -1;
 }
