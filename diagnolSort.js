@@ -47,9 +47,44 @@
  * ]
  */
 
-function diagnolSort(a) {
-  //start by traversing the all possible diagnols
+function diagnalSort(a) {
+	let diag = 0;
+	let x = a.length + 1;
+	//start by traversing the all possible diagnols
 
+	while (diag < a.length * 2) {
+		for (let i = 0; i < a.length; i++) {
+			for (let j = 0; j < a.length; j++) {
+				if ((i + j) === a.length - x) {
+					console.log(a[i][j]);
+				}
+			}
+		}
+		console.log('----------------')
+		diag++;
+		x--;
+	}
+	// if ((i + j) === a.length - 1) {
+	// 	console.log(a[i][j])
+	// }
+	// if ((i + j) === a.length - 2) {
+	// 	console.log(a[i][j])
+	// }
+	// if ((i + j) === a.length - 3) {
+	// 	console.log(a[i][j])
+	// }
+	// if ((i + j) === a.length - 4) {
+	// 	console.log(a[i][j])
+	// }
+	// if ((i + j) === a.length) {
+	// 	console.log(a[i][j])
+	// }
+	// if ((i + j) === a.length + 1) {
+	// 	console.log(a[i][j])
+	// }
+	// if (i + j === a.length + 2) {
+	// 	console.log(a[i][j]);
+	// }
 }
 
 /* TEST */
@@ -59,6 +94,23 @@ let matrix = [
 	[3, 6, 9, 7],
 	[1, 2, 2, 2],
 ];
+
+let m2 = [
+	[1, 3, 9],
+	[9, 5, 2],
+	[3, 6, 9],
+];
+
+let m3 = [
+	[1, 3, 9, 4, 5],
+	[9, 5, 7, 7, 5],
+	[3, 6, 9, 7, 5],
+	[1, 2, 2, 2, 5],
+	[3, 6, 9, 7, 5],
+];
+
+
+diagnalSort(m3);
 
 /* result
 matrix = [
