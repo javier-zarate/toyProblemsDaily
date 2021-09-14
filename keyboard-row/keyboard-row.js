@@ -2,26 +2,25 @@
  * @param {string[]} words
  * @return {string[]}
  */
-var findWords = function(words) {
+var findWords = function(words) {    
+    let row1 = {'q':true,'w':true,'e':true,'r':true,'t':true,'y':true,'u':true,"i":true,'o':true,'p':true};
+    let row2 = {'a':true,'s':true,'d':true,'f':true,'g':true,'h':true,'j':true,"k":true,'l':true};
+    let row3 = {'z':true,'x':true,'c':true,'v':true,'b':true,'n':true,'m':true};
+    
     let result = [];
-    let hash = {
-        'q':1, 'w':1, 'e':1, 'r':1, 't':1, 'y':1, 'u':1, 'i':1, 'o':1, 'p':1, 
-        'a':2, 's':2, 'd':2, 'f':2, 'g':2, 'h':2, 'j':2, 'k':2, 'l':2, 
-        'z':3, 'x':3, 'c':3, 'v':3, 'b':3, 'n':3, 'm':3,
-        'Q':1, 'W':1, 'E':1, 'R':1, 'T':1, 'Y':1, 'U':1, 'I':1, 'O':1, 'P':1, 
-        'A':2, 'S':2, 'D':2, 'F':2, 'G':2, 'H':2, 'J':2, 'K':2, 'L':2, 
-        'Z':3, 'X':3, 'C':3, 'V':3, 'B':3, 'N':3, 'M':3
-    };
-
-    for (word of words) {
-        let count = 0;
-        for (char of word) {
-            count += hash[char]; 
-        }
+    for (var word of words) {
+        let oneLine = true;
+        let matchingDictionary = row1[word[0].toLowerCase()] ? row1: row2[word[0].toLowerCase()] ? row2 : row3;
         
-        if (hash[word[0]] === count / word.length) {
-            result.push(word);
+        for (var char of word.toLowerCase()) {
+
+            if ((row1[char] ? row1 : row2[char] ? row2 : row3) !== matchingDictionary) {
+                oneLine = false;
+                break;
+            }
         }
+        oneLine ? result.push(word) : null;
+
     }
     return result;
-};
+}
