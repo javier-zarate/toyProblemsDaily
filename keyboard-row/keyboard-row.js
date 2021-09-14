@@ -10,7 +10,8 @@ var findWords = function(words) {
     let result = [];
     for (var word of words) {
         let oneLine = true;
-        let matchingDictionary = row1[word[0].toLowerCase()] ? row1: row2[word[0].toLowerCase()] ? row2 : row3;
+        let firstChar = word[0].toLowerCase();
+        let matchingDictionary = row1[firstChar] ? row1: row2[firstChar] ? row2 : row3;
         
         for (var char of word.toLowerCase()) {
 
