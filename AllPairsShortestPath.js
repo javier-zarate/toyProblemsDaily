@@ -2,23 +2,32 @@
 
 // ineffiecient appproach: Floyd Warshall O(n^3)
 
-function findShortestPath(n, edges) {
+function findShortestPath(n, edges, start, end) {
 	let matrix = createAndPopulateMatrix(n, edges);
-	// let shortestPath;
-	for (let k = 0; k <= n; k++) {
-		for (let i = 0; i <= n; i++) {
-			for (let j = 0; j <= n; j++) {
-        if (i=== j) continue;
-				a = (matrix[i][k] === undefined) ? Infinity : matrix[i][k];
-				b = (matrix[k][j] === undefined) ? Infinity : matrix[k][j];
-				curr = (matrix[i][j] === undefined) ? 0 : matrix[i][j];
-        console.log(curr, a, b)
-				matrix[i][j] = Math.min(curr, a + b);
+	matrix = findAllShortestPaths(matrix);
+	printMatrix(matrix);
+
+	let pathResult = matrix[start - 1][end - 1];
+
+	return pathResult === Infinity ? -1 : pathResult;
+}
+
+function findAllShortestPaths(matrix) {
+	for (let k = 0; k < n; k++) {
+		for (let i = 0; i < n; i++) {
+			for (let j = 0; j < n; j++) {
+				if (i === j) {
+					matrix[i][j] = 0;
+				}
+
+				a = matrix[i][k];
+				b = matrix[k][j];
+
+				matrix[i][j] = Math.min(matrix[i][j], a + b);
 			}
 		}
 	}
-
-	console.log(matrix);
+	return matrix;
 }
 
 function printMatrix(m) {
@@ -39,9 +48,8 @@ function printMatrix(m) {
 function createAndPopulateMatrix(n, edges) {
 	let x = Array(n)
 		.fill()
-		.map(() => Array(n).fill());
+		.map(() => Array(n).fill(Infinity));
 
-	//iterate over the matrix and populate
 	let u, v, weight;
 	edges.forEach((edge) => {
 		u = edge[0] - 1;
@@ -63,4 +71,5 @@ let edges = [
 	[4, 3, 7],
 	[4, 2, 5],
 ];
-findShortestPath(n, edges);
+
+console.log(findShortestPath(n, edges, 1, 4));
