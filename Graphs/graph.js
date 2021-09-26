@@ -9,7 +9,7 @@ class Graph {
     }
   }
 
-  addEdge(u, v) {
+  addUndirectedEdge(u, v) {
     if (!this.adjacencyList.has(u)) {
       this.addVertex(u);
     }
@@ -18,6 +18,13 @@ class Graph {
     }
     this.adjacencyList.get(u).push(v);
     this.adjacencyList.get(v).push(u);
+  }
+
+  addDirectedEdge(u, v) {
+    if (!this.adjacencyList.has(u)) {
+      this.addVertex(u);
+    }
+    this.adjacencyList.get(u).push(v);
   }
 
   removeEdge(u, v) {
@@ -39,10 +46,10 @@ graph.addVertex(2)
 graph.addVertex(3)
 graph.addVertex(4)
 graph.addVertex(5)
-graph.addEdge(1,2)
-graph.addEdge(2,3)
-graph.addEdge(3,4)
-graph.addEdge(1,4)
+graph.addUndirectedEdge(1,2)
+graph.addUndirectedEdge(2,3)
+graph.addUndirectedEdge(3,4)
+graph.addUndirectedEdge(1,4)
 
 console.log(graph)
 
