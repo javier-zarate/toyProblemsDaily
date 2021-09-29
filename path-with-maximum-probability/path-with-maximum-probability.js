@@ -6,47 +6,56 @@
  * @param {number} end
  * @return {number}
  */
+
 var maxProbability = function(n, edges, succProb, start, end) {
-    let graph = createGraph(edges, succProb);
+    let graph = buildGraph(edges, succProb);
     
-    let queue = [[1.000, start]];
-    let visited = new Set();
+    //edge cases
+    //starting node is not in graph
+    if (graph.get(start) === undefined) return 0;
     
-    while (queue.length){
-        let [prob, node] = queue.shift();
+    // add visited set to avoid infinity loop
+    const visited = new Set();
+    const queue = [[start, 1.0]]; // starting node and 100% prob
+    
+    while (queue.length > 0) {
+        let [node, prob] = queue.shift(); 
         
         if (visited.has(node)) continue;
         visited.add(node);
-        if (node === end){
+        
+        if (node === end) {
             return prob;
         }
         
-        if (graph.has(node)){
-            for (let [nextNode,nextProb] of graph.get(node)){
-                if (!visited.has(nextNode)){
-                    queue.push([nextProb*prob, nextNode]);
-                }
-            }
+        for(let [neighbor, neighborProb] of graph.get(node)) {
+            // start accruing prob with each node 
+            queue.push([neighbor, neighborProb * prob]);
         }
-        queue.sort((a,b) => b[0]-a[0]);
+        
+        // Where the Magic happens
+        // sort queue in descending order to visit nodes by highest prob
+        queue.sort((a,b) => b[1] - a[1]);
     }
+    // no path was found thus 0 prob
     return 0;
 };
 
-const createGraph = (edges, succProb) => {
-    let graph = new Map()
-    // weighted undirected adj list
-    for (let i = 0; i < edges.length; i++){
-        let [edge1, edge2] = edges[i]
-        if (!graph.has(edge1)){
-            graph.set(edge1, [])
-        }
-        if (!graph.has(edge2)){
-            graph.set(edge2, [])
-        }
-        graph.get(edge1).push([edge2, succProb[i]])
-        graph.get(edge2).push([edge1, succProb[i]])
-    }
+const buildGraph = (edges, succProb) => {
+    const map = new Map(); 
     
-    return graph;
-}
+    for (let index in edges) {
+        let [u, v] = edges[index]; 
+        
+        if(!map.has(u)) {
+            map.set(u, []);
+        }
+        map.get(u).push([v, succProb[index]]);
+        
+        if(!map.has(v)) {
+            map.set(v, []);
+        }
+        map.get(v).push([u, succProb[index]]);
+    }
+    return map;
+};
