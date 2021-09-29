@@ -1,24 +1,24 @@
 const connectedComponentsCount = (graph) => {
-  const visited = new Set();
+	const visited = new Set();
 
-  let count = 0;
+	let count = 0;
 
-  for (let node of graph.keys()) {
-    if(explore(graph, node, visited)) count++;
-  }
+	for (let node of graph.keys()) {
+		if (explore(graph, node, visited)) count++;
+	}
 
-  return count;
+	return count;
 };
 
 const explore = (graph, current, visited) => {
-  if (visited.has(current)) return false;
+	if (visited.has(current)) return false;
 
-  visited.add(current);
-  for (let neighbor of graph.get(current)) {
-    explore(graph, neighbor, visited);
-  }
+	visited.add(current);
+	for (let neighbor of graph.get(current)) {
+		explore(graph, neighbor, visited);
+	}
 
-  return true;
+	return true;
 };
 
 const graph = {
@@ -31,18 +31,19 @@ const graph = {
 	4: [3, 2],
 };
 
-const Graph = require('./graph.js');
-let list = new Graph();
+// converting given graph to map to avoid keys as strings
+let list = new Map();
 
-for(let key in graph) {
-  list.addVertex(Number(key));
+for (let [key, value] of Object.entries(graph)) {
+	if (!list.has(Number(key))) {
+		list.set(Number(key), value);
+	}
 }
 
-for(let [key, value] of Object.entries(graph)) {
-  if (list.adjacencyList.has(Number(key))) {
-    list.adjacencyList.set(Number(key), value);
-  }
-}
+let count = connectedComponentsCount(list);
+// console.log(count); // answer 2
 
-let count = connectedComponentsCount(list.adjacencyList)
-console.log(count) // answer 2
+// exported list out of sheer lazyness
+// did not want to type another one out
+// work smarter not harder ;)
+module.exports = { list };
