@@ -1,30 +1,94 @@
 const { list } = require('./connectedComponents.js');
+// assuming we are given a graph
+// ex:
+/**
+ *
+Map {
+  0 => [ 8, 1, 5 ],
+  1 => [ 0 ],
+  2 => [ 3, 4 ],
+  3 => [ 2, 4 ],
+  4 => [ 3, 2 ],
+  5 => [ 0, 8 ],
+  8 => [ 0, 5 ]
+}
+
+// components visual
+        0----8
+      /   \  |
+     /     \ |
+    /       \|
+    1       5
+
+      3---2
+      |  /
+      | /
+      |/
+      4
+ */
 
 const largestComponent = (graph) => {
-  let largestComponentCount = 0;
-
+  let largest = 0;
   const visited = new Set();
 
-  for (let node of list.keys()) {
-    let result = explore(graph, node, visited);
-    largestComponentCount = Math.max(largestComponentCount, result);
+  for(let node of graph.keys()) {
+    largest = Math.max(largest, explore(graph, node, visited));
   }
-  return largestComponentCount;
+
+  return largest;
 };
 
-const explore = (graph, current, visited) => {
-  if (visited.has(current)) {
-    return 0;
-  }
+// using a DFS recursively, using the Call stack as our stack
+const explore = (graph, node, visited) => {
+  if (visited.has(node)) return 0;
 
-  visited.add(current);
+  visited.add(node);
 
   let size = 1;
-  for(let neighbor of graph.get(current)) {
+
+  for(const neighbor of graph.get(node)) {
     size += explore(graph, neighbor, visited);
   }
 
   return size;
-}
+};
 
-console.log(largestComponent(list))
+console.log(largestComponent(list)); // 4
+
+// 0 => [8, 5, 1]
+//             ^
+// v -> 0
+//           ^
+// s=> 1 + 2 + 0 +  1
+// r 4
+
+// 8 => [0,5]
+//         ^
+// v-> 0, 8
+// s -> 1 + 0 + 1
+// r ???
+
+// 5 => [0, 8]
+//       ^
+// v => 0, 8, 5
+// s => 1 + 0  + 0
+
+// 1 => [0]
+//       ^
+// v => 0, 8, 5
+// s = 1
+
+
+/*
+        0----8
+      /   \  |
+     /     \ |
+    /       \|
+    1       5
+
+      3---2
+      |  /
+      | /
+      |/
+      4
+ */
