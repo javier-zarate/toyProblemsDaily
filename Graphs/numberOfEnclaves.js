@@ -1,69 +1,77 @@
 /**
- * @param {number[][]} grid
+ * @param {number[][]} graph
  * @return {number}
  */
- var numEnclaves = function(grid) {
-  if (grid.length <= 1) return 0;
+const numEnclaves = (graph) => {
 
-  let validCells = 0;
-  const visited = new Set();
-  let connectedToBoundary = false;
+	if (graph.length <= 1) return 0;
 
+	let validCells = 0;
+	const visited = new Set();
 
-  for (let r = 0; r < grid.length; r++) {
-      for(let c = 0; c < grid[0].length; c++) {
-          if (grid[r][c] === 1) {
-              let res = explore(grid, r, c, visited, connectedToBoundary, 0)
-              if (!res) validCells += res;
+	// skip iteration of the border elements
+	for (let r = 1; r < graph.length - 1; r++) {
+		for (let c = 1; c < graph[0].length - 1; c++) {
+			if (graph[r][c] === 1) {
+				let enclaceCount = explore(graph, r, c, visited);
+				if (enclaceCount !== Infinity) {
+                    validCells += enclaceCount;
+                    graph[r][c] = 0;
+                }
+			}
+		}
+	}
 
-          }
-          connectedToBoundary = false;
-      }
-  }
-
-  return validCells;
+	return validCells;
 };
 
-const explore = (grid, r, c, visited, connectedToBoundary, validCells) => {
-  // out of bounds
-  const rowsInBounds = (r >= 0) && (r <= grid.length - 1);
-  const colsInBounds = (c >= 0) && (c <= grid[0].length - 1);
+const explore = (graph, r, c, visited, borderNodes) => {
+	// out of bounds
+	const rowsInBounds = r >= 0 && r <= graph.length - 1;
+	const colsInBounds = c >= 0 && c <= graph[0].length - 1;
 
-  if (!rowsInBounds || !colsInBounds) return false;
+	if (!rowsInBounds || !colsInBounds || graph[r][c] === 0) return 0;
 
-  if (grid[r][c] === 0) return false;
+	let position = r + ',' + c;
+	if (visited.has(position)) return 0;
+	visited.add(position);
 
-  let position = r + ',' + c;
-  if (visited.has(position)) return false;
-  visited.add(position);
+	let cellCount = 1;
 
-  // boundaries
-  if (r === 0  || c === 0 || r === grid.length - 1 || c === grid[0].length - 1) {
-      connectedToBoundary = true;
-  }
+	// boundaries
+	if (r === 0 || c === 0 || r === graph.length - 1 || c === graph[0].length - 1) {
+		cellCount += Infinity;
+	}
 
-  validCells++;
+	cellCount += explore(graph, r + 1, c, visited);
+	cellCount += explore(graph, r - 1, c, visited);
+	cellCount += explore(graph, r, c + 1, visited);
+	cellCount += explore(graph, r, c - 1, visited);
 
-  let w = explore(grid, r + 1, c, visited, connectedToBoundary, validCells);
-  let x = explore(grid, r - 1, c, visited, connectedToBoundary, validCells);
-  let y = explore(grid, r, c + 1, visited, connectedToBoundary, validCells);
-  let z = explore(grid, r, c - 1, visited, connectedToBoundary, validCells);
-
-  w = (typeof w === false) ? 0 : w;
-  x = (typeof x === false) ? 0 : x;
-  y = (typeof y === false) ? 0 : y;
-  z = (typeof z === false) ? 0 : z;
-
-  validCells += w + x + y + z;
-
-  return !connectedToBoundary ?  false : validCells;
-}
+	return cellCount;
+};
 
 // guaranteed
-
 
 // define the boundaries
 // top:     [0, c]
 // bottom : [# of rows, c]
 // left:    [r, 0]
 // right:   [r, # of columns]
+
+let x = [
+	[0, 1, 1, 0],
+	[0, 0, 1, 0],
+	[0, 0, 1, 0],
+	[0, 0, 0, 0],
+]; // expected: 0
+// let y = [
+// 	[0, 0, 0, 0],
+// 	[1, 0, 1, 0],
+// 	[0, 1, 1, 0],
+// 	[0, 0, 0, 0],
+// ]; // expected: 3
+let y = x;
+console.log();
+console.log(numEnclaves(x)); // expected: 0, 3
+console.log(x === y);
