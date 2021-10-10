@@ -23,4 +23,4 @@ Each problem should have the following:
 &nbsp;
 
 ## Interview Questions 
- - Interview Questions that I have encountered in the wild! 
+ - Interview Questions that I have encountered. 
