@@ -11,20 +11,24 @@
  * @return {number}
  */
 var sumOfLeftLeaves = function(root) {
-    let stack = [root]; 
-    let sum = 0; 
+    // need to traverse the tree
+    // only sum up LEFT leaves
+    // determine what constitutes a leaf
+    let stack = [root];
+    let total = 0;
     
-    while (stack.length > 0) {
-        node = stack.pop(); 
+    while (stack.length !== 0) {
+        let node = stack.pop();
         
-        if (isLeaf(node.left)) sum += node.left.val;
-        if (node.right) stack.push(node.right); 
+        if (node.left && isLeaf(node.left)) total += node.left.val;
         if (node.left) stack.push(node.left);
+        if (node.right) stack.push(node.right);
     }
-    
-    return sum; 
+    return total;
 };
     
 const isLeaf = (node) => {
-    return node !== null && node.left === null && node.right === null;  
+    // leave must not be null
+    // must not have children
+    return node !== null && node.left === null && node.right === null;
 };
