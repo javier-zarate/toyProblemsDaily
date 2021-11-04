@@ -43,7 +43,7 @@ for (let [key, value] of Object.entries(graph)) {
 let count = connectedComponentsCount(list);
 // console.log(count); // answer 2
 
-// exported list out of sheer lazyness
+// exported list out of sheer laziness
 // did not want to type another one out
 // work smarter not harder ;)
 module.exports = { list };

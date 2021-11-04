@@ -3,25 +3,29 @@
  * @return {number[][]}
  */
 var threeSum = function(nums) {
- nums.sort((a, b) => a - b);
-    const result = [];
+    nums = nums.sort((a, b) => a - b);
+    let result = [];
     
-    for(let i = 0; i < nums.length; i++) {
-        let low = i+1, high = nums.length-1, sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] > 0) break;
+        if (nums[i] === nums[i - 1]) continue;
         
-        while(low < high) {
-            sum = nums[i] + nums[low] + nums[high];
-            
-            if(sum === 0) {
-                result.push([nums[i], nums[low], nums[high]]);
-                while(nums[low+1] === nums[low]) low++;
-                while(nums[high-1] === nums[high]) high--;
-                low++;
-                high--;
-            } else if(sum < 0) low++;
-            else high--;
-        }
-        while(nums[i+1] === nums[i]) i++;
+        twoSum(nums, i, result);
     }
-    return result;    
+    return result;
+};
+
+const twoSum = (nums, i, result) => {
+    let seen = new Set();  
+    
+    for(let j = i + 1; j < nums.length; j++) {
+        let complement = -nums[i] - nums[j];
+        if(seen.has(complement)) {
+            result.push([nums[i], complement, nums[j]]);
+            while (j + 1 < nums.length && nums[j] === nums[j + 1]){
+                ++j;
+            }
+        }
+        seen.add(nums[j])
+    }
 };

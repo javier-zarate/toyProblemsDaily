@@ -54,5 +54,4 @@ const validSubStr = (str, chars) => {
 // Time Complexity:
 //  O(n x m) length of string and length of char set
 // Space complexity:
-//  O(m) Matched WILL mirror of store entire char set if found,
-
+//  O(m) Matched WILL mirror of store entire char set if found
