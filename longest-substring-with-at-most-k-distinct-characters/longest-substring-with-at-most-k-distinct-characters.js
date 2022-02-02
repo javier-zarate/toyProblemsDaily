@@ -4,28 +4,31 @@
  * @return {number}
  */
 var lengthOfLongestSubstringKDistinct = function(s, k) {
-    let maxLength = 0, left = 0;
-    const charSetInWindow = {}; 
+    let window = {} 
+    let left = 0;
+    let longestSubStr = 0; 
     
     for (let right in s) {
-        let rightMostChar = s[right]; 
+        let rightChar = s[right];
         
-        if (!(rightMostChar in charSetInWindow)) {
-            charSetInWindow[rightMostChar] = 0;
+        if (!(rightChar in window)) {
+            window[rightChar] = 0;
         }
-        charSetInWindow[rightMostChar]++;
+        window[rightChar]++; 
         
-        while(Object.keys(charSetInWindow).length > k) {
-            let leftMostChar = s[left]; 
-            charSetInWindow[leftMostChar]--;
+        while (Object.keys(window).length > k) {
+            let leftChar = s[left];
+            window[leftChar]--; 
             
-            if (charSetInWindow[leftMostChar] === 0) {
-                delete charSetInWindow[leftMostChar];
+            if (window[leftChar] === 0){
+                delete window[leftChar];
+                
             }
-            left++;
+            left++
         }
-        let windowSize =  right - left + 1
-        maxLength = Math.max(maxLength, windowSize);
+        
+        longestSubStr = Math.max(longestSubStr, right - left + 1);
     }
-    return maxLength;
+    
+    return longestSubStr; 
 };

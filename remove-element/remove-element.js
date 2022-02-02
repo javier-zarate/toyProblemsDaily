@@ -4,12 +4,21 @@
  * @return {number}
  */
 var removeElement = function(nums, val) {
-    let count = 0;
-    for (let i = 0; i < nums.length; i++){
-        if (nums[i] !== val) {
-            nums[count] = nums[i];
-            count++;
+    let total = nums.length; 
+    
+    for (let lastDeletedIndex = 0, currIndex = 0; currIndex < nums.length; currIndex++) {
+        if (nums[currIndex] === val) {
+            nums[currIndex] = "_"; 
+            total--;
+        } else if (lastDeletedIndex !== currIndex) {
+            nums[lastDeletedIndex] = nums[currIndex];
+            nums[currIndex] = "_";
+            lastDeletedIndex++;
+        } else {
+            lastDeletedIndex++; 
         }
+        
     }
-    return count;
+    
+    return total;
 };
